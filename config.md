@@ -71,3 +71,5 @@ Once this is done we can invoke the command as follows.
 ```
 git tree
 ```
+
+Merge conflict
