@@ -44,8 +44,30 @@ This step depends on who your chosen Git hosting provider is, for sites such as 
 
 ## Cross Platform Issues
 
-line endings
+### Line Endings
+
+When working on cross platforms projects, or using the same hard drive in combination with different operating systems, problems arise with the way text is stored on disk. Specifically Windows and Unix like systems use different characters to define the end of a line, Windows uses CRLF and Unix like systems use LR.
+
+The following setting tells Git to automatically deal with line endings globally.
+
+```
+git config --global core.autocrlf true
+```
+
+If you checkout a commit before setting this option, you may be asked to commit changes to files you have not changed. In this situation the easist apporach is to remove the files which were checked out with the wrong line endings then perform a hard reset on the repository, this will checkout the files with the correct line endings. Be careful not to loss any changes you have made.
 
 ## Useful Aliases
 
+When working on projects with many branches it can be confusing to determine the order of commits and which branches were merges and where. With the following alias it is possible show this information on the command line.
+
+First we need to create an alias called `tree` (you can choose your own alias name) which will be the shorthand for the command. Note that this is a long command which is why having an alias is preferable.
+
+```
+git config --global alias.tree "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
+```
+
+Once this is done we can invoke the command as follows.
+
+```
 git tree
+```
