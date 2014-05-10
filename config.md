@@ -42,6 +42,17 @@ You should now have two new files in your `~/.ssh` directory: your private key `
 
 This step depends on who your chosen Git hosting provider is, for sites such as [GitHub](https://github.com) and [Bitbucket](httsp://bitbucket.org) and self hosted installations of [GitLab](https://gitlab.com) has a settings section which allows you to add your public key to the server quickly and easily.
 
+## Mergetool
+
+Solving merge conflicts can be a difficult and tedious task which can be made much easier with a visual merge tool such as [meld](http://meldmerge.org/). Meld is available for [Windows](http://sourceforge.net/projects/meld-installer/) as well as Unix based systems. Other merge tools are available and are usually a personal preference.
+
+In order to setup Git to take advantage of an installed merge tool on Windows we need to perform the following configuration. Take care to replace the path to your merge tool with the correct path to the exectuable.
+
+```
+git config --global mergetool.meld.path "C:\Program Files (x86)\Meld\bin\meld\meld.exe"
+git config --global merge.tool meld
+```
+
 ## Cross Platform Issues
 
 ### Line Endings
@@ -71,5 +82,3 @@ Once this is done we can invoke the command as follows.
 ```
 git tree
 ```
-
-Merge me
