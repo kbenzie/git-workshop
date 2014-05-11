@@ -186,7 +186,7 @@ Hit return to start merge resolution tool (meld):
 
 ![Meld merge conflict](images/meld-merge-0.png)
 ![Meld merge resolved](images/meld-merge-1.png)
-![Meld merge saved](image/meld-merge-2.png)
+![Meld merge saved](images/meld-merge-2.png)
 
 ### Stashing
 
