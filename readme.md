@@ -46,7 +46,7 @@ This step depends on who your chosen Git hosting provider is, for sites such as 
 
 ### Mergetool
 
-Solving merge conflicts can be a difficult and tedious task which can be made much easier with a visual merge tool such as [meld](http://meldmerge.org/). Meld is available for [Windows](http://sourceforge.net/projects/meld-installer/) as well as Unix based systems. Other merge tools are available and are usually a personal preference.
+Solving merge conflicts can be a difficult and tedious task which can be made much easier with a visual merge tool such as [meld](http://meldmerge.org/). `meld` is available for [Windows](http://sourceforge.net/projects/meld-installer/) as well as Unix based systems. Other merge tools are available and are usually a personal preference.
 
 In order to setup Git to take advantage of an installed merge tool on Windows we need to perform the following configuration. Take care to replace the path to your merge tool with the correct path to the exectuable.
 
@@ -175,7 +175,7 @@ git stash list
 
 ### Merging
 
-The majoritory of the time `git` can automatically merge files without problems, this gives learning how to deal with merge conflicts a lower priority especially when working on your own. However when a merge conflict does arise it can be a slow and painful experience to fix it properly. This section relies on having a visual merge tool setup on your system, we will be using Meld which you should have setup if you followed the Mergetool section above.
+The majoritory of the time `git` can automatically merge files without problems, this gives learning how to deal with merge conflicts a lower priority especially when working on your own. However when a merge conflict does arise it can be a slow and painful experience to fix it properly. This section relies on having a visual merge tool setup on your system, we will be using `meld` which you should have setup if you followed the Mergetool section above.
 
 First of all lets setup a situation where a merge conflict will occur, for this we need to have a file commited in out repository.
 
@@ -243,7 +243,7 @@ So now `git` has told us that we need to resolve the merge conflict in the file 
 git mergetool conflict.txt
 ```
 
-Will prompt you with the following, just hit enter and a Meld window will appear.
+Will prompt you with the following, just hit enter and a `meld` window will appear.
 
 ```
 Merging:
@@ -255,7 +255,7 @@ Normal merge conflict for 'conflict.txt':
 Hit return to start merge resolution tool (meld):
 ```
 
-Meld will now appear looking similar to the following image, here we have three views of the file `conflict.txt` in different states. On the left is the state of the file on the `master` branch, on the right is the state of the file in the `conflict` branch, and in the middle in the view we want to contain the resolved state. The arrows in the middle view show where the merge conflict has occured and which file the changes have come from.
+`meld` will now appear looking similar to the following image, here we have three views of the file `conflict.txt` in different states. On the left is the state of the file on the `master` branch, on the right is the state of the file in the `conflict` branch, and in the middle in the view we want to contain the resolved state. The arrows in the middle view show where the merge conflict has occured and which file the changes have come from.
 
 In this case the chosen change is not really important so we can just click on the arrow pointing from the left view to the middle view, if both views contain important changes then you can edit the middle view just like a regular text file.
 
@@ -265,7 +265,7 @@ This screenshot shows the result of the previous action, as you can see we have 
 
 ![Meld merge resolved](images/meld-merge-1.png)
 
-Finally we can exit Meld and save the `conflict.txt` file.
+Finally we can exit `meld` and save the `conflict.txt` file.
 
 ![Meld merge saved](images/meld-merge-2.png)
 
