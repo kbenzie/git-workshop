@@ -184,9 +184,36 @@ Normal merge conflict for 'conflict.txt':
 Hit return to start merge resolution tool (meld):
 ```
 
+Meld will now appear looking similar to the following image, here we have three views of the file `conflict.txt` in different states. On the left is the state of the file on the `master` branch, on the right is the state of the file in the `conflict` branch, and in the middle in the view we want to contain the resolved state. The arrows in the middle view show where the merge conflict has occured and which file the changes have come from.
+
+In this case the chosen change is not really important so we can just click on the arrow pointing from the left view to the middle view, if both views contain important changes then you can edit the middle view just like a regular text file.
+
 ![Meld merge conflict](images/meld-merge-0.png)
+
+This screenshot shows the result of the previous action, as you can see we have chosen the `master` branches change and ignored the `conflict` branched change.
+
 ![Meld merge resolved](images/meld-merge-1.png)
+
+Finally we can exit Meld and save the `conflict.txt` file.
+
 ![Meld merge saved](images/meld-merge-2.png)
+
+We have successfully resolve the merge conflict, the final task is to commit the changes.
+
+```
+git commit
+```
+
+The commit message will look like this, there is no need to change it.
+
+```
+Merge branch 'conflict'
+
+Conflicts:
+    conflict.txt
+```
+
+And your done, merge conflicts are no longer your enemy.
 
 ### Stashing
 
