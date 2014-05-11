@@ -102,6 +102,92 @@ Once this is done we can use the alias with the command `git tree`.
 
 ## Tutorials
 
+### Merging
+
+The majoritory of the time `git` can automatically merge files without problems, this gives learning how to deal with merge conflicts a lower priority especially when working on your own. However when a merge conflict does arise it can be a slow and painful experience to fix it properly. This section relies on having a visual merge tool setup on your system, we will be using Meld which you should have setup if you followed the Mergetool section above.
+
+First of all lets setup a situation where a merge conflict will occur, for this we need to have a file commited in out repository.
+
+```
+echo "Some text" > conflict.txt
+git add conflict.txt
+git commit -m "Add conflict.txt"
+```
+
+Now that we have our file in the repository tree we require an additional branch, switch to this branch and make a change to contents of `conflict.txt`. Once this is done we can commit these changes and change back to the master branch.
+
+```
+git branch conflict
+git checkout conflict
+echo "Some changed text" > conflict.txt
+git commit -am "Changed conflicts.txt"
+git checkout master
+```
+
+Back on the master branch now and the final change to `conflict.txt` before we can see how to solve a merge conflict.
+
+```
+echo "Another change" > conflict.txt
+git commit -am "The conflicting change"
+```
+
+We are now in a situation where a merge conflict will occur when we attempt to merge the `conflict` branch into master as follows.
+
+```
+git merge conflict
+```
+
+This will output the following message
+
+```
+Auto-merging conflict.txt
+CONFLICT (content): Merge conflict in conflict.txt
+Automatic merge failed; fix conflicts and then commit the result.
+```
+
+This is usually a good time to view the status of the repository in order to see the extent of the merge conflict.
+
+```
+git status
+```
+
+Which should look like this.
+
+```
+On branch master
+You have unmerged paths.
+  (fix conflicts and run "git commit")
+
+Unmerged paths:
+  (use "git add <file>..." to mark resolution)
+
+        both modified:      conflict.txt
+
+no changes added to commit (use "git add" and/or "git commit -a")
+```
+
+So now `git` has told us that we need to resolve the merge conflict in the file `conflict.txt` we do this by invoking the merge tool we set up earlier.
+
+```
+git mergetool conflict.txt
+```
+
+Will prompt you with the following, just hit enter and a Meld window will appear.
+
+```
+Merging:
+conflict.txt
+
+Normal merge conflict for 'conflict.txt':
+  {local}: modified file
+  {remote}: modified file
+Hit return to start merge resolution tool (meld):
+```
+
+![Meld merge conflict](images/meld-merge-0.png)
+![Meld merge resolved](images/meld-merge-1.png)
+![Meld merge saved](image/meld-merge-2.png)
+
 ### Stashing
 
 The stash is a temporary place where local changes can stored whilst other operations are performed on the repository, such as pulling the lastest commits or changing branch before a commit. To stash changes is simple.

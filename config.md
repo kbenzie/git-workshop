@@ -15,7 +15,7 @@ git config --global user.email "your.name@email.server"
 
 When working with remote repositories there are two methods of connecting to the remote git server, using HTTPS and using SSH. When pushing to a git server when connecting with HTTPS you will be asked for your username and password for the server, this can be tedious to repeatedly enter when simply uploading your changes, by using SSH keys you no longer need to enter your credentials. This approach uses OpenSSH, it is also possible to use alternatives but this is not covered here.
 
-### Check for an existing SSH key
+### 1: Check for an existing SSH key
 
 ```
 cd ~/.ssh
@@ -24,7 +24,7 @@ ls -a
 
 If you see the file `id_rsa.pub` then you already have an SSH key and can skip to Section 3.
 
-### Create a new SSH key
+### 2: Create a new SSH key
 
 We will be using the `ssh-keygen` tool to create a new SSH key with the RSA cryptosystem, your email is also required in this step.
 
@@ -38,7 +38,7 @@ The you will be prompted to enter a passphrase (and confirmation) required to us
 
 You should now have two new files in your `~/.ssh` directory: your private key `id_rsa` which must be kept safe, and public key `id_rsa.pub` which can be provided to a Git server to enable SSH authentication.
 
-### Adding SSH key to you Git server
+### 3: Adding SSH key to you Git server
 
 This step depends on who your chosen Git hosting provider is, for sites such as [GitHub](https://github.com) and [Bitbucket](httsp://bitbucket.org) and self hosted installations of [GitLab](https://gitlab.com) has a settings section which allows you to add your public key to the server quickly and easily.
 
@@ -55,7 +55,7 @@ git config --global merge.tool meld
 
 ## Cross Platform Issues
 
-### Line Endings
+### Line Endings (Optional)
 
 When working on cross platforms projects, or using the same hard drive in combination with different operating systems, problems arise with the way text is stored on disk. Specifically Windows and Unix like systems use different characters to define the end of a line, Windows uses CRLF and Unix like systems use LR.
 
@@ -67,7 +67,7 @@ git config --global core.autocrlf true
 
 If you checkout a commit before setting this option, you may be asked to commit changes to files you have not changed. In this situation the easist apporach is to remove the files which were checked out with the wrong line endings then perform a hard reset on the repository, this will checkout the files with the correct line endings. Be careful not to loss any changes you have made.
 
-## Useful Aliases
+## Useful Aliases (Optional)
 
 When working on projects with many branches it can be confusing to determine the order of commits and which branches were merges and where. With the following alias it is possible show this information on the command line.
 
@@ -77,8 +77,4 @@ First we need to create an alias called `tree` (you can choose your own alias na
 git config --global alias.tree "log --graph --abbrev-commit --decorate --date=relative --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all"
 ```
 
-Once this is done we can invoke the command as follows.
-
-```
-git tree
-```
+Once this is done we can use the alias with the command `git tree`.
