@@ -2,7 +2,7 @@
 
 ## Configuration
 
-Preface, using requirements
+This workshop has been written with a focus on using Git Bash on Windows or bash shell, alternative setups will likely work without issue.
 
 ### User Settings
 
@@ -101,6 +101,77 @@ git config --global alias.tree "log --graph --abbrev-commit --decorate --date=re
 Once this is done we can use the alias with the command `git tree`.
 
 ## Tutorials
+
+### Stashing
+
+The stash is a temporary place where local changes can stored whilst other operations are performed on the repository, such as pulling the lastest commits or changing branch before a commit. To stash changes is simple.
+
+```
+git stash
+```
+
+You should see the following if the stash was successful.
+
+```
+Saved working directory and index state WIP on master: <commit> <message>
+```
+
+Otherwise if you have not made any changes you will see the following, please make a change to a file in order to continue.
+
+```
+No local changes to save
+```
+
+Now that we have stashed some changes we can do whichever task for which the stash was required. It is possible to list all the current stashes.
+
+```
+git stash list
+```
+
+Which will show output in the following form.
+
+```
+stash@{0}: WIP on master: <commit> <message>
+... possibly more stashes ...
+```
+
+Stashes are stored in a stack, so the latest stash will have the `stash@{0}` identifier, any older stashes will have the form `stash@{n}` where `n` is the position in the stack.
+
+When the time comes when you want to unstash the changes there are two options, apply the changes or pop the changes which does an apply then a drop. We will start with apply.
+
+```
+git stash apply stash@{0}
+```
+
+A successful apply will show the output of a call to `git status` and your changes will be applied to the repository. If we call `git stash list` you will see that your stash is still avaialble.
+
+The alternative is to use `git stash pop` which will apply the changes then drop the stash from the stash list. First we need to perform a hard reset to avoid a merge conflict.
+
+```
+git reset --hard HEAD
+git stash pop
+git stash list
+```
+
+If all goes well the stash should be applied to the working directory and the displayed list will no longer show the stash. Lets add the stash once again, then explore how to view the contents of a stash.
+
+```
+git stash
+git stash list
+```
+
+To view the contents of a stash we can use `git stash show stash@{0}` to see the insertions and deletions, however it is usually more useful to see the changes in patch form.
+
+```
+git stash show -p stash@{0}
+```
+
+Finally if we decide we no longer require the changes containted within it. The stash can be dropped as follows.
+
+```
+git stash drop stash@{0}
+git stash list
+```
 
 ### Merging
 
@@ -215,73 +286,113 @@ Conflicts:
 
 And your done, merge conflicts are no longer your enemy.
 
-### Stashing
+### Submodules
 
-The stash is a temporary place where local changes can stored whilst other operations are performed on the repository, such as pulling the lastest commits or changing branch before a commit. To stash changes is simple.
+The majority of projects are built upon existing libraries, distributing these projects can prove difficult because these external dependencies must be available on the target system which makes building a problem. One approach to solving this problem is to supply the source code for the libraries you rely on with your own project, however the naive solution of copying the source code into your repository is hard to update and can lead to files being accidentally changed.
 
-```
-git stash
-```
+Submodules are the git approach to this problem, a submodule is an existing git repository that you reference in your own git repository. To add a submodule to your repository you simply need to the URL of the repository you want to use. For this example we will create a new repository and add the GitHub GLFW repository as a submodule.
 
-You should see the following if the stash was successful.
+#### Setup
 
 ```
-Saved working directory and index state WIP on master: <commit> <message>
+mkdir glfw-example
+cd glfw-example
+git init
 ```
 
-Otherwise if you have not made any changes you will see the following, please make a change to a file in order to continue.
+It is good practice, but not essential, to keep your submodule in a directory within your repository. Here we will store GLFW in the `external` repository although it is also common to use `ThirdParty` or similar.
 
 ```
-No local changes to save
+mkdir external
 ```
 
-Now that we have stashed some changes we can do whichever task for which the stash was required. It is possible to list all the current stashes.
+#### Adding a submodule
+
+Now we will add our submodule
 
 ```
-git stash list
+git submodule add https://github.com/glfw/glfw.git external/glfw
 ```
 
-Which will show output in the following form.
+Which results in the following output
 
 ```
-stash@{0}: WIP on master: <commit> <message>
-... possibly more stashes ...
+Cloning into 'external/glfw'...
+remote: Reusing existing pack: 13159, done.
+remote: Total 13159 (delta 0), reused 0 (delta 0)
+Receiving objects: 100% (13159/13159), 6.41 MiB | 1.41 MiB/s, done.
+Resolving deltas: 100% (8082/8082), done.
+Checking connectivity... done.
+warning: LF will be replaced by CRLF in .gitmodules.
+The file will have its original line endings in your working directory.
 ```
 
-Stashes are stored in a stack, so the latest stash will have the `stash@{0}` identifier, any older stashes will have the form `stash@{n}` where `n` is the position in the stack.
-
-When the time comes when you want to unstash the changes there are two options, apply the changes or pop the changes which does an apply then a drop. We will start with apply.
+Now we can see that the GLFW library source code has been added to the `external/glfw` directory, but we are not finished. If we check the status of our repository we will see the following output.
 
 ```
-git stash apply stash@{0}
+On branch master
+
+Initial commit
+
+Changes to be committed:
+  (use "git rm --cached <file>..." to unstage)
+
+        new file:   .gitmodules
+        new file:   external/glfw
 ```
 
-A successful apply will show the output of a call to `git status` and your changes will be applied to the repository. If we call `git stash list` you will see that your stash is still avaialble.
-
-The alternative is to use `git stash pop` which will apply the changes then drop the stash from the stash list. First we need to perform a hard reset to avoid a merge conflict.
+There are two entries to be added, the first is the file `.gitmodules` which contains a list of all the submodules which have been added to the project. The second is the submodule its self. Lets commit our changes.
 
 ```
-git reset --hard HEAD
-git stash pop
-git stash list
+git commit -m "Add glfw submodule"
 ```
 
-If all goes well the stash should be applied to the working directory and the displayed list will no longer show the stash. Lets add the stash once again, then explore how to view the contents of a stash.
+#### Removing a submodule
+
+Removing a submodule from a repository can be tricky, so here is the process. First we need to edit the `.gitmodules` file and remove the following entry.
 
 ```
-git stash
-git stash list
+[submodule "external/glfw"]
+    path = external/glfw
+    url = https://github.com/glfw/glfw.git
 ```
 
-To view the contents of a stash we can use `git stash show stash@{0}` to see the insertions and deletions, however it is usually more useful to see the changes in patch form.
+And then stage `.gitmodules`
 
 ```
-git stash show -p stash@{0}
+git add .gitmodules
 ```
 
-Finally if we decide we no longer require the changes containted within it. The stash can be dropped as follows.
+Then we need to edit the file `.git/config` removing the following entry.
 
 ```
-git stash drop stash@{0}
-git stash list
+[submodule "external/glfw"]
+    url = https://github.com/glfw/glfw.git
+```
+
+Now we need to remove the submodule from the repository tree, and also remove the module reference.
+
+```
+git rm --cached external/glfw
+rm -rf .git/modules/external/glfw
+```
+
+Now we can commit the changes made to remove the submodule
+
+```
+git commit -m "Remove submodule external/glfw"
+```
+
+Finally we can now remove the physical files from the file system and view the state of the repository.
+
+```
+rm -rf external/glfw
+git status
+```
+
+Which results in the following
+
+```
+On branch master
+nothing to commit, working directory clean
 ```
