@@ -858,6 +858,23 @@ Conflicts:
 
 And your done, merge conflicts are no longer your enemy.
 
+### Patches
+
+A patch is a set of changes in a portable format, pathces are useful for distributing changes when you do not have write access to a repository and are the basis of code review systems. Generating a patch is pretty simple when in a repository which has local changes.
+
+```
+git diff > ../a.patch
+```
+
+This command produces a differential between the most recent commit and the local changes which have been made, the second part of the command is piping `>` the output from `git diff` to the file `../a.patch`, if we did not pipe this output it would be printed on the command prompt.
+
+Now that we have a patch which holds the changes we can clean up the repository and then apply the patch.
+
+```
+git reset --hard HEAD
+git apply ../a.patch
+```
+
 ### Submodules
 
 The majority of projects are built upon existing libraries, distributing these projects can prove difficult because these external dependencies must be available on the target system which makes building a problem. One approach to solving this problem is to supply the source code for the libraries you rely on with your own project, however the naive solution of copying the source code into your repository is hard to update and can lead to files being accidentally changed.
