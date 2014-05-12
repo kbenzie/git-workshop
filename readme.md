@@ -5,7 +5,23 @@
 * - [SSH Settings](#ssh-settings)
 * - [Mergetool](#mergetool)
 * - [Help](#help)
+* - [Cross Platform Issues](#cross-platform-issues)
+* - [Useful Aliases (Optional)](#useful-aliases-optional)
 * [Tutorials](#tutorials)
+* - [Creating a New Project](#creating-a-new-project)
+* - [Copying Projects](#copying-projects)
+* - [Checking the Status](#checking-the-status)
+* - [Adding Content & Committing](#adding-content-&-commiting)
+* - [Viewing History](#viewing-history)
+* - [Removing, Reverting, Resetting & Cleaning](#removing-reverting-resetting-&-cleaning)
+* - [Cloning & Remote Repositories](#cloning-&-remote-repositories)
+* - [Pushing & Pulling](#pushing-&-pulling)
+* - [Branches](#branches)
+* - [Ignore file](#ignore-file)
+* - [Merging](#merging)
+* - [Patches](#patches)
+* - [Submodules](#submodules)
+* - [Rebasing](#rebasing)
 
 ## Configuration
 
@@ -561,7 +577,7 @@ Cloning into bare repository 'git-tutorial-basic.git'...
 done.
 ```
 
-#### Pushing & Pulling
+### Pushing & Pulling
 
 Let's go back to our repository and get it working with our bare repository. All
 of the following commands will work the same even if the repository was an
