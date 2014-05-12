@@ -1,10 +1,10 @@
 # Git Workshop
 
 * [Configuration](#configuration)
-* * [User Settings](#user-settings)
-* * [SSH Settings](#ssh-settings)
-* * [Mergetool](#mergetool)
-* * [Help](#help)
+* - [User Settings](#user-settings)
+* - [SSH Settings](#ssh-settings)
+* - [Mergetool](#mergetool)
+* - [Help](#help)
 * [Tutorials](#tutorials)
 
 ## Configuration
