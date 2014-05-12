@@ -868,10 +868,9 @@ git diff > ../a.patch
 
 This command produces a differential between the most recent commit and the local changes which have been made, the second part of the command is piping `>` the output from `git diff` to the file `../a.patch`, if we did not pipe this output it would be printed on the command prompt.
 
-Now that we have a patch which holds the changes we can clean up the repository and then apply the patch.
+Now that we have a patch which holds the changes we can clean up the repository and then apply the patch. If we attempt to apply the patch to the respository without cleaning it, the command will abort because the changes are already there.
 
 ```
-git reset --hard HEAD
 git apply ../a.patch
 ```
 
