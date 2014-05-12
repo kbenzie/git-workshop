@@ -11,7 +11,7 @@
 * - [Creating a New Project](#creating-a-new-project)
 * - [Copying Projects](#copying-projects)
 * - [Checking the Status](#checking-the-status)
-* - [Adding Content & Committing](#adding-content--commiting)
+* - [Adding Content & Committing](#adding-content--committing)
 * - [Viewing History](#viewing-history)
 * - [Removing, Reverting, Resetting & Cleaning](#removing-reverting-resetting--cleaning)
 * - [Cloning & Remote Repositories](#cloning--remote-repositories)
