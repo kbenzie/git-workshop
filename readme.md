@@ -1,7 +1,7 @@
 # Git Workshop
 
-* [Configuration](#Configuration)
-* [Tutorials](#Tutorials)
+* [Configuration](#configuration)
+* [Tutorials](#tutorials)
 
 ## Configuration
 
